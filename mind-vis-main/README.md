@@ -7,7 +7,7 @@ Our framework consists of two main stages:
 - Stage B: Double-Conditioned Latent Diffusion Model (_DC-LDM_)
 
 The **data** folder **pretrains** folder are not included in this repository.
-Please download them from [link](limk) and put them in the root directory of this repository as shown below.
+Please download them from [Gdrive](https://drive.google.com/drive/folders/1cetXxe2Syi817Ur1yhc09MQtDioiV3az?usp=sharing) and put them in the root directory of this repository as shown below.
 
 File path | Description
 
@@ -73,7 +73,7 @@ conda activate mind-vis
 
 We have provided the data and checkpoints for one subject(sub-08) to directly run the evaluation script that is described in further below.
 
-We provide checkpoints and finetuning data at [link](limk) to run the finetuing and decoding directly. Due to the size limit, we only release the checkpoints for Subject 8 NOD. After downloading, extract the `data/` and `pretrains/` to the project directory.
+We also provide checkpoints to skip all the training/finetuning and directly run the final evaluation script(described below) at [FigShare](limk). Due to the size limit, we only release the checkpoints for Subject 8 NOD. After downloading, extract the `results` folder to the project directory.
 
 ## SC-MBM Pre-training on fMRI (Stage A)
 
@@ -97,7 +97,7 @@ Inside this sbatch file set the `--pretrain_mbm_path` option to the checkpoint g
 
 ## Run fMRI Decoding and Generate Images with Trained Checkpoints
 
-You can directly run this stage with our provided checkpoints from the results folder:
+You can directly run this stage with our provided checkpoints from the `results` folder:
 
 ```sh
 sbatch run-eval.SBATCH
