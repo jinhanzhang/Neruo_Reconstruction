@@ -71,6 +71,9 @@ def get_args_parser():
     parser.add_argument('--root', type=str, default='.')
     parser.add_argument('--dataset', type=str, default='GOD')
 
+    parser.add_argument('--pretrain_mbm_path', type=str)
+    parser.add_argument('--model_path', type=str)
+
     return parser
 
 
@@ -79,7 +82,7 @@ if __name__ == '__main__':
     args = args.parse_args()
     root = args.root
     target = args.dataset
-    model_path = os.path.join(root, 'results/generation2/30-04-2024-04-34-24/checkpoint_best.pth')
+    model_path = os.path.join(root, args.model_path)
   
     sd = torch.load(model_path, map_location='cpu')
     config = sd['config']
@@ -88,8 +91,7 @@ if __name__ == '__main__':
     config.kam_path = os.path.join(root, 'data/Kamitani/npz')
     config.bold5000_path = os.path.join(root, 'data/BOLD5000')
     config.NOD_path = os.path.join(root, 'data/NOD')
-    # config.pretrain_mbm_path = os.path.join(root, 'pretrains', f'{target}', 'fmri_encoder.pth')
-    config.pretrain_mbm_path = os.path.join(root, 'results/fmri_finetune/29-04-2024-18-56-56/checkpoints/checkpoint.pth')
+    config.pretrain_mbm_path = os.path.join(root, args.pretrain_mbm_path)
     config.pretrain_gm_path = os.path.join(root, 'pretrains/ldm/label2img')
     print(config.__dict__)
 

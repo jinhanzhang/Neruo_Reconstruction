@@ -65,12 +65,12 @@ class Config_MBM_finetune(Config_MBM_finetune):
         self.kam_subs = ['sbj_3']
         self.bold5000_subs = ['CSI1']
         # self.NOD_subs = ['sub-01', 'sub-02', 'sub-03', 'sub-04', 'sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09', 'sub-11', 'sub-12', 'sub-13', 'sub-14', 'sub-15', 'sub-16', 'sub-17', 'sub-18', 'sub-19', 'sub-21', 'sub-22', 'sub-23', 'sub-24', 'sub-25', 'sub-26', 'sub-27', 'sub-28', 'sub-29', 'sub-30']
-        self.NOD_subs = ['sub-14']
+        self.NOD_subs = ['sub-08']
 
         # Training Parameters
         self.lr = 5.3e-5
         self.weight_decay = 0.05
-        self.num_epoch = 50
+        self.num_epoch = 100
         self.batch_size = 16 if self.dataset == 'GOD' else 4 
         self.mask_ratio = 0.75 
         self.accum_iter = 1
@@ -101,7 +101,7 @@ class Config_Generative_Model:
         self.kam_subs = ['sbj_3']
         self.bold5000_subs = ['CSI1']
         # self.NOD_subs = ['sub-01', 'sub-02', 'sub-03', 'sub-04', 'sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09', 'sub-11', 'sub-12', 'sub-13', 'sub-14', 'sub-15', 'sub-16', 'sub-17', 'sub-18', 'sub-19', 'sub-21', 'sub-22', 'sub-23', 'sub-24', 'sub-25', 'sub-26', 'sub-27', 'sub-28', 'sub-29', 'sub-30']
-        self.NOD_subs = ['sub-14']
+        self.NOD_subs = ['sub-08']
         self.pretrain_mbm_path = os.path.join(self.root_path, f'pretrains/{self.dataset}/fmri_encoder.pth') 
 
         self.img_size = 256
@@ -115,7 +115,7 @@ class Config_Generative_Model:
         else:
             self.batch_size = 25
         self.lr = 5.3e-5
-        self.num_epoch = 200
+        self.num_epoch = 500
         
         self.precision = 32
         self.accumulate_grad = 1

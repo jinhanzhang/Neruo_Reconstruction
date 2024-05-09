@@ -1,4 +1,3 @@
-print("start")#
 import os, sys
 import numpy as np
 import torch
@@ -20,7 +19,6 @@ from sc_mbm.trainer import train_one_epoch
 from sc_mbm.trainer import NativeScalerWithGradNormCount as NativeScaler
 from sc_mbm.utils import save_model
 
-print("imports done")#
 os.environ["WANDB_START_METHOD"] = "thread"
 os.environ['WANDB_DIR'] = "."
 
@@ -88,7 +86,6 @@ def fmri_transform(x, sparse_rate=0.2):
     return torch.FloatTensor(x_aug)
 
 def main(config):
-    print("inside main")#
     if torch.cuda.device_count() > 1:
         torch.cuda.set_device(config.local_rank) 
         torch.distributed.init_process_group(backend='nccl')
@@ -100,17 +97,14 @@ def main(config):
     config.output_path = output_path
     logger = wandb_logger(config) if config.local_rank == 0 else None
     
-    print("created logger")#
     if config.local_rank == 0:
         os.makedirs(output_path, exist_ok=True)
         create_readme(config, output_path)
     
-    print("gonna check cuda")#
     device = torch.device(f'cuda:{config.local_rank}') if torch.cuda.is_available() else torch.device('cpu')
     torch.manual_seed(config_pretrain.seed)
     np.random.seed(config_pretrain.seed)
 
-    print("create model")#
     # create model
     num_voxels = (sd['model']['pos_embed'].shape[1] - 1)* config_pretrain.patch_size
     model = MAEforFMRI(num_voxels=num_voxels, patch_size=config_pretrain.patch_size, embed_dim=config_pretrain.embed_dim,
@@ -122,7 +116,6 @@ def main(config):
     model.to(device)
     model_without_ddp = model
 
-    print("Gonna load NOD")#
     # create dataset and dataloader
     if config.dataset == 'GOD':
         _, test_set = create_Kamitani_dataset(path=config.kam_path, patch_size=config_pretrain.patch_size, 
@@ -228,13 +221,9 @@ def update_config(args, config):
     return config
 
 if __name__ == '__main__':
-    print('parsing args')#
     args = get_args_parser()
     args = args.parse_args()
-    print('creating config')#
     config = Config_MBM_finetune()
-    print('updating config')#
     config = update_config(args, config)
-    print('Calling main')#
     main(config)
     

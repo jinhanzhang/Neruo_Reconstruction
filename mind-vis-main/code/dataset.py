@@ -474,7 +474,7 @@ class BOLD5000_dataset(Dataset):
         pass
 
 # NOD_subs = ['sub-01', 'sub-02', 'sub-03', 'sub-04', 'sub-05', 'sub-06', 'sub-07', 'sub-08', 'sub-09', 'sub-11', 'sub-12', 'sub-13', 'sub-14', 'sub-15', 'sub-16', 'sub-17', 'sub-18', 'sub-19', 'sub-21', 'sub-22', 'sub-23', 'sub-24', 'sub-25', 'sub-26', 'sub-27', 'sub-28', 'sub-29', 'sub-30']
-NOD_subs = ['sub-14']
+NOD_subs = ['sub-08']
 def get_NOD_stimuli_list(imgLists, sub):
     sti_name = []
     for file in imgLists:
@@ -522,7 +522,8 @@ def create_NOD_dataset(path='../data/NOD', patch_size=16, fmri_transform=identit
             if nii.endswith('.nii') and sub in nii:
                 niidata = nib.load(nii).get_fdata()
                 fmri_data_sub.append(niidata[:,20000:25000])
-        fmri_data_sub = np.concatenate(fmri_data_sub) # concatenate all runs
+
+        fmri_data_sub = np.array(fmri_data_sub[0])
         fmri_data_sub = normalize(pad_to_patch_size(fmri_data_sub, patch_size))
       
         # load image
@@ -537,14 +538,10 @@ def create_NOD_dataset(path='../data/NOD', patch_size=16, fmri_transform=identit
         testset_size = int(ds_size/10)
         for i in range(testset_size):
             test_idx.append(random.randrange(ds_size)) 
-        # test_idx = [list_get_all_index(img_files, img) for img in repeated_imgs_list]
-        # test_idx = [i for i in test_idx if len(i) > 0] # remove empy list for CSI4
+
         test_fmri = np.stack([fmri_data_sub[idx] for idx in test_idx])
         test_img = np.stack([img_data_sub[idx] for idx in test_idx])
         
-        # test_idx_flatten = []
-        # for idx in test_idx:
-        #     test_idx_flatten += idx # flatten
         if include_nonavg_test:
             test_fmri = np.concatenate([test_fmri, fmri_data_sub[test_idx]], axis=0)
             test_img = np.concatenate([test_img, np.stack([img_data_sub[idx] for idx in test_idx])], axis=0)
@@ -553,7 +550,6 @@ def create_NOD_dataset(path='../data/NOD', patch_size=16, fmri_transform=identit
         train_img = np.stack([img_data_sub[idx] for idx in train_idx])
         train_fmri = fmri_data_sub[train_idx]
 
-        print("appending")#
         fmri_train_major.append(train_fmri)
         fmri_test_major.append(test_fmri)
         img_train_major.append(train_img)

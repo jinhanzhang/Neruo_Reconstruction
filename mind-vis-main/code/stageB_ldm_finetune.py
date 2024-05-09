@@ -240,7 +240,7 @@ if __name__ == '__main__':
         config.checkpoint_path = ckp
         print('Resuming from checkpoint: {}'.format(config.checkpoint_path))
 
-    output_path = os.path.join(config.root_path, 'results', 'generation2',  '%s'%(datetime.datetime.now().strftime("%d-%m-%Y-%H-%M-%S")))
+    output_path = os.path.join(config.root_path, 'results', 'generation',  '%s'%(datetime.datetime.now().strftime("%d-%m-%Y-%H-%M-%S")))
     config.output_path = output_path
     os.makedirs(output_path, exist_ok=True)
     
