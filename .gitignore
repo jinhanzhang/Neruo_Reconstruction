@@ -3,6 +3,20 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# result files
+*/pretrains
+*/pretrains1
+*/results
+*/results_14_15_16
+*/results1
+*.out
+*.pt
+*/data
+*.pth
+*/wandb
+*/Color2Embed/test_datasets
+*/Color2Embed/misc
+
 # C extensions
 *.so
 

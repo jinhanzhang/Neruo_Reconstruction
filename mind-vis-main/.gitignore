@@ -1,0 +1,6 @@
+code/.ipynb_checkpoints/*
+*.out
+data/*
+.ipynb_checkpoints/*
+pretrains/*
+*.pyc

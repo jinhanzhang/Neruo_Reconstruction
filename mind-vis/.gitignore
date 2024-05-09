@@ -1,0 +1,16 @@
+results/
+data/
+__pycache__/
+wandb/
+lightning_logs/
+image_generation/
+mind_vis.egg-info/
+*.out
+*.npz
+*.ckpt
+*.DS_Store
+*.zip
+*.tar
+*.nii
+*.gz
+*.pth
